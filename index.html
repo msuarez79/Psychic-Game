@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<title>Psychic Game</title>
+</head>
+<body>
+
+<h1>Psychic Game</h1>
+
+<div id="game">
+	<p>Hello, guess what letter I'm thinking of...</p>
+	<p id="Wins">Wins:</p>
+	<p id="Losses">Losses:</p>
+	<p id="Guessesleft">Guesses left:</p>
+	<p id="Yourguessessofar">Your guesses so far:</p>
+</div>
+
+<script type="text/javascript">
+
+var possibleGuesses = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+
+var Wins = 0;
+var Losses = 0;
+var Guessesleft = 9;
+var Yourguessessofar = [];
+var computerGuess = possibleGuesses[Math.floor(Math.random() * possibleGuesses.length)];
+	//alert(computerGuess);
+
+var reset = function(){
+	Guessesleft = 9;
+	Yourguessessofar = [];
+	computerGuess = possibleGuesses[Math.floor(Math.random() * possibleGuesses.length)];
+}
+
+var update = function(){
+	document.querySelector("#Guessesleft").innerHTML = "Guesses left: " + Guessesleft;
+	document.querySelector("#Yourguessessofar").innerHTML = "Your guesses so far: " + Yourguessessofar;
+}
+
+
+
+	document.onkeyup = function(event) {
+
+		var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+			//alert(userGuess); 
+
+		Yourguessessofar.push(userGuess);
+
+		Guessesleft--;
+
+		update();		
+
+				if (Guessesleft > 0){
+
+
+				if (userGuess === computerGuess){
+				Wins++;
+				reset();
+				document.querySelector("#Wins").innerHTML = "Wins: " + Wins;
+				}
+
+			}
+				
+				else if (Guessesleft === 0){
+				Losses++;
+				reset();
+				document.querySelector("#Losses").innerHTML = "Losses: " + Losses;
+				}
+
+	
+
+		};
+	
+
+</script>
+
+<style type="text/css">
+	
+	body{
+
+		background-color: lightblue;
+	}
+
+	h1{
+		
+		text-align: center;
+
+	}
+
+</style>
+
+</body>
+</html>
